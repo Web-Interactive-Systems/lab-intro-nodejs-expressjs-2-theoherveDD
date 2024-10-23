@@ -1,1 +1,1 @@
-require("./src/lab2");
+import './src/lab2.js';

@@ -2,12 +2,14 @@ const express = require("express");
 const app = express();
 
 /**
- Check the documentation of expressjs middleware  
- https://expressjs.com/en/guide/using-middleware.html#using-middleware
 
- Todo: What is a middleware?
-  [Answer here...]
- */
+Check the documentation of expressjs middleware  
+https://expressjs.com/en/guide/using-middleware.html#using-middleware
+
+Todo: What is a middleware?
+[Answer here...]
+
+*/
 
 /*
   Todo: Write an expressjs middleware: verifyMidware   
@@ -16,6 +18,25 @@ const app = express();
   - if there is no token throw an error
   */
 
-app.listen(3000, () => {
-  console.log("Server is listening on port 3000....");
-});
+  const verifyMidware = (req, res, next) => {
+    console.log("\n ====> verifyMidware");
+    if (req.query.token) {
+      next();
+    } else {
+      res.status(403).send("Token is required");
+    }
+  };
+
+  app.use(verifyMidware);
+
+  app.get("/", (req, res) => {
+    res.json("Hello World");
+  });
+
+  app.get("/test", (req, res) => {
+    res.json("Hello Test");
+  });
+
+  app.listen(3000, () => {
+    console.log("Server is listening on port 3000....");
+  });
